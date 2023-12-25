@@ -1,0 +1,67 @@
+http:
+  port: ${PORT}
+admin:
+  port: 9876
+  host: localhost
+apiEndpoints:
+  bcsc-api-client:
+    paths:
+      - "/client/*"
+  bcsc-api-cdt:
+    paths:
+      - "/cdt_manager/*"
+serviceEndpoints:
+  bcsc-api-client:
+    url: ${URL_CLIENT_SERVICE}
+  bcsc-api-cdt:
+    url: ${URL_CDT_MANAGER_SERVICE}
+policies:
+  - body-parser
+  - basic-auth
+  - cors
+  - expression
+  - key-auth
+  - log
+  - oauth2
+  - proxy
+  - rate-limit
+  - winston-logger
+pipelines:
+  bcsc-api-client:
+    apiEndpoints:
+      - bcsc-api-client
+    policies:
+      - body-parser:
+      - cors:
+          - action:
+              origin: "*"
+              methods: "GET,HEAD,PUT,PATCH,POST,DELETE"
+              preflightContinue: false
+              optionsSuccessStatus: 204
+      - log:
+          - action:
+              message: "${req.method} ${req.originalUrl} ${JSON.stringify(req.headers)}"
+      - winston-logger:
+      - proxy:
+          - action:
+              serviceEndpoint: bcsc-api-client
+              changeOrigin: true
+  bcsc-api-cdt:
+    apiEndpoints:
+      - bcsc-api-cdt
+    policies:
+      - body-parser:
+      - cors:
+          - action:
+              origin: "*"
+              methods: "GET,HEAD,PUT,PATCH,POST,DELETE"
+              preflightContinue: false
+              optionsSuccessStatus: 204
+      - log:
+          - action:
+              message: "${req.method} ${req.originalUrl} ${JSON.stringify(req.headers)}"
+      - winston-logger:
+      - proxy:
+          - action:
+              serviceEndpoint: bcsc-api-cdt
+              changeOrigin: true

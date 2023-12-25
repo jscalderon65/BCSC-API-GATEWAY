@@ -1,0 +1,53 @@
+{
+  "name": "bcsc-api-gateway",
+  "description": "Express Gateway Instance Bootstraped from Command Line",
+  "repository": {},
+  "license": "UNLICENSED",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "commit": "cz"
+  },
+  "dependencies": {
+    "commitizen": "^4.3.0",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "express-gateway": "^1.16.11",
+    "stream": "^0.0.2",
+    "winston": "^3.11.0",
+    "winston-transport": "^4.6.0",
+    "zlib": "^1.0.5"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog",
+      "disableScopeLowerCase": false,
+      "disableSubjectLowerCase": false,
+      "maxHeaderWidth": 100,
+      "maxLineWidth": 100,
+      "defaultType": "",
+      "defaultScope": "",
+      "defaultSubject": "",
+      "defaultBody": "",
+      "defaultIssues": "",
+      "types": {
+        "[ADD]": {
+          "description": "A new feature",
+          "title": "Features"
+        },
+        "[FIX]": {
+          "description": "A bug fix",
+          "title": "Bug Fixes"
+        },
+        "[REFACTOR]": {
+          "description": "A code change that neither fixes a bug nor adds a feature",
+          "title": "Code Refactoring"
+        },
+        "[DELETE]": {
+          "description": "A code change that removes a feature",
+          "title": "Removals"
+        }
+      }
+    }
+  }
+}
